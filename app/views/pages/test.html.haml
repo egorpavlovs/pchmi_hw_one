@@ -5,10 +5,11 @@
 
 = form_tag(complete_answers_path, method: :put)  do
   - for element in @all_elements
-    %ul
-      %li
-        = check_box_tag "elements[]", element
-        = element
+    %li
+      = check_box_tag "elements[]", element
+    %li
+      =image_tag "#{element}.png"
+    %br ---------------------------------------
   = submit_tag 'Complete'
 
 

@@ -1,13 +1,16 @@
 %br Result
 
 %p Your answer:
-= @answers
+- @answers.each do |answer|
+  =image_tag "#{answer}.png"
 
 %p Rigth:
-= @elements
+- @elements.each do |element|
+  =image_tag "#{element}.png"
 
 %p Result:
-= procent
+= "#{procent}%"
 
 %p Not right answers
-= not_right_answers
+- not_right_answers&.each do |not_right_answer|
+  =image_tag "#{not_right_answer}.png"
