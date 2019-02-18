@@ -1,31 +1,76 @@
 class NumbersService
   class << self
     def generate_three_elements()
+      result_elements = []
+
+      colors = []
       elements = []
-      3.times do |element|
-        elements << [generate_color(), generate_element(), generate_number()].join("_")
+      numbers = []
+
+      3.times do
+
+        color = generate_color()
+        colors << color
+        element = generate_element()
+        elements << element
+        number = generate_number()
+        numbers << number
+
+        result_elements << [color, element, number].join("_")
       end
-      pp elements
-      elements
+      result_elements = (colors.uniq.count > 1 && elements.uniq.count > 1 && numbers.uniq.count > 1) ? result_elements : generate_three_elements()
     end
 
     def generate_all_elements()
-      ["a", "b", "c"]
+      colors = generate_color(true)
+      elements = generate_element(true)
+      numbers = generate_number(true)
+
+      all_elements = []
+      colors.each do |color|
+        elements.each do |element|
+          numbers.each do |number|
+            all_elements << [color, element, number].join("_")
+          end
+        end
+      end
+      all_elements
     end
 
-    def generate_color()
+    def generate_color(all = nil)
       colors = ["red", "green", "blue"]
-      colors.sample
+      all ? colors : colors.sample
     end
 
-    def generate_element()
+    def generate_element(all = nil)
       elements = ["word", "symbol"]
-      elements.sample
+      all ? elements : elements.sample
     end
 
-    def generate_number()
+    def generate_number(all = nil)
       numbers = [1,2,3,4,5,6,7,8,9]
-      numbers.sample
+      all ? numbers : numbers.sample
+    end
+
+    def check_answers(right, answers)
+      not_right_answers = nil
+      resp = if right.count == answers.count
+        not_right_answers = answers - right
+        case not_right_answers.count
+        when 0
+          "100%"
+        when 1
+          "66%"
+        when 2
+          "33%"
+        when 3
+          "0%"
+        end
+      else
+        "Count answers not right"
+      end
+
+      [resp, not_right_answers]
     end
   end
 end

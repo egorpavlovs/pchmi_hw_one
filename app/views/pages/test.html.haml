@@ -1,2 +1,15 @@
 %br Check.
-%p Select tree elements from last page
+%p Select three elements from last page
+
+
+
+= form_tag(complete_answers_path, method: :put)  do
+  - for element in @all_elements
+    %ul
+      %li
+        = check_box_tag "elements[]", element
+        = element
+  = submit_tag 'Complete'
+
+
+
