@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  before_action :init_array, :get_elements, :get_all_elements
-# get_elementsвызывается несколько раз(((
+  before_action :get_elements, :get_all_elements
+
   def show
     render template: "pages/#{params[:page]}"
   end
@@ -21,13 +21,8 @@ class PagesController < ApplicationController
   end
 
   private
-
-    def init_array
-      @hui = ["start"] unless @hui.present?
-    end
-
     def get_elements
-      @elements = NumbersService.generate_three_elements()
+      @elements = NumbersService.generate_elements(3)
       File.open('files/log_elements.txt', 'a'){ |file| file.puts  @elements }
       File.open('files/log_elements.txt', 'a'){ |file| file.puts  "delimiter"}
       @elements

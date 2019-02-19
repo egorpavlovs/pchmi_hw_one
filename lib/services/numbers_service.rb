@@ -1,13 +1,13 @@
 class NumbersService
   class << self
-    def generate_three_elements()
+    def generate_elements(elements_count)
       result_elements = []
 
       colors = []
       elements = []
       numbers = []
 
-      3.times do
+      elements_count.times do
 
         color = generate_color()
         colors << color
@@ -18,7 +18,7 @@ class NumbersService
 
         result_elements << [color, element, number].join("_")
       end
-      result_elements = (colors.uniq.count > 1 && elements.uniq.count > 1 && numbers.uniq.count > 1 && result_elements.uniq.count == 3) ? result_elements : generate_three_elements()
+      result_elements = (colors.uniq.count > 1 && elements.uniq.count > 1 && numbers.uniq.count > 1 && result_elements.uniq.count == 3) ? result_elements : generate_elements(elements_count)
     end
 
     def generate_all_elements()
@@ -67,7 +67,7 @@ class NumbersService
           0
         end
       else
-        "Count answers not right"
+        "Count answers not right - 0"
       end
       statistic = [right.join(" "), answers.join(" "), resp].join(";")
       File.open('files/statistic.csv', 'a'){ |file| file.puts  statistic }
