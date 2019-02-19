@@ -8,17 +8,35 @@ class NumbersService
       numbers = []
 
       elements_count.times do
-
-        color = generate_color()
-        colors << color
-        element = generate_element()
-        elements << element
-        number = generate_number()
-        numbers << number
-
-        result_elements << [color, element, number].join("_")
+        colors = generate_uniq_components("color", colors)
+        element = generate_uniq_components("element", elements)
+        number = generate_uniq_components("number", numbers)
       end
-      result_elements = (colors.uniq.count > 1 && elements.uniq.count > 1 && numbers.uniq.count > 1 && result_elements.uniq.count == 3) ? result_elements : generate_elements(elements_count)
+
+      for i in 0..elements_count-1
+        result_elements << [colors[i], elements[i], numbers[i]].join("_")
+      end
+      p colors
+      p elements
+      p numbers
+      # result_elements = result_elements.uniq.count == elements_count ? result_elements : generate_elements(elements_count)
+      result_elements
+    end
+
+    def generate_uniq_components(type, components)
+      remaining = nil
+      case type
+      when "color"
+        remaining = generate_color(true) - components
+        remaining = generate_color(true) unless remaining.present?
+      when "element"
+        remaining = generate_element(true) - components
+        remaining = generate_element(true) unless remaining.present?
+      when "number"
+        remaining = generate_number(true) - components
+        remaining = generate_number(true) unless remaining.present?
+      end
+      components << remaining.sample
     end
 
     def generate_all_elements()
