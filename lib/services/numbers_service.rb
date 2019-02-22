@@ -68,10 +68,18 @@ class NumbersService
 
     def check_answers(right, answers)
       not_right_answers = answers - right
-      resp = right.count == answers.count ? (right - answers).count.to_f/right.count*100 : "Count answers not right - 0"
+      right_answers = answers - not_right_answers
+
+      resp = right.count == answers.count ? right_answers.count.to_f/right.count*100 : "Count answers not right - 0"
+
       statistic = [right.join(" "), answers.join(" "), resp].join(";")
       File.open('files/statistic.csv', 'a'){ |file| file.puts  statistic }
       [resp, not_right_answers]
+    end
+
+
+    def create_statistic()
+
     end
   end
 end
