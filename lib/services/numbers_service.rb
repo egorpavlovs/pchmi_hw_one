@@ -16,10 +16,6 @@ class NumbersService
       for i in 0..elements_count-1
         result_elements << [colors[i], elements[i], numbers[i]].join("_")
       end
-      p colors
-      p elements
-      p numbers
-      # result_elements = result_elements.uniq.count == elements_count ? result_elements : generate_elements(elements_count)
       result_elements
     end
 
@@ -71,22 +67,8 @@ class NumbersService
     end
 
     def check_answers(right, answers)
-      not_right_answers = nil
-      resp = if right.count == answers.count
-        not_right_answers = answers - right
-        case not_right_answers.count
-        when 0
-          100
-        when 1
-          66
-        when 2
-          33
-        when 3
-          0
-        end
-      else
-        "Count answers not right - 0"
-      end
+      not_right_answers = answers - right
+      resp = right.count == answers.count ? (right - answers).count.to_f/right.count*100 : "Count answers not right - 0"
       statistic = [right.join(" "), answers.join(" "), resp].join(";")
       File.open('files/statistic.csv', 'a'){ |file| file.puts  statistic }
       [resp, not_right_answers]
