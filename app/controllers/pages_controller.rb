@@ -20,6 +20,17 @@ class PagesController < ApplicationController
     render template: "pages/result", :locals => { :procent => procent, :not_right_answers => not_right_answers }
   end
 
+  def statistic
+    statistic = NumbersService.create_statistic
+    File.open('files/log_elements.txt', 'w'){ |file| file.write "" }
+    render template: "pages/statistic", :locals => {
+      percent_correct_answer: statistic['percent_correct_answer'],
+      percent_correct_color: statistic['percent_correct_color'],
+      percent_correct_element: statistic['percent_correct_element'],
+      percent_correct_number: statistic['percent_correct_number']
+    }
+  end
+
   private
     def get_elements
       @elements = NumbersService.generate_elements(3)

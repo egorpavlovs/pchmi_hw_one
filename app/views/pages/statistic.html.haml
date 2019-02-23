@@ -1,0 +1,26 @@
+%br Statistic
+
+%br Answers:
+- percent_correct_answer.each do |answer_percent|
+  %li
+    = answer_percent.first + " -"
+    = answer_percent.last
+
+%br Color:
+- percent_correct_color.each do |color_percent|
+  %li
+    = color_percent.first + " -"
+    = color_percent.last
+
+%br Element:
+- percent_correct_element.each do |element_percent|
+  %li
+    = element_percent.first + " -"
+    = element_percent.last
+
+
+%br Number:
+- percent_correct_number.each do |number_percent|
+  %li
+    = number_percent.first.to_s + " -"
+    = number_percent.last

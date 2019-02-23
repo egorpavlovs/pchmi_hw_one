@@ -79,7 +79,58 @@ class NumbersService
 
 
     def create_statistic()
+      statistic_records = File.open('files/statistic.csv'){ |file| file.read }.split("\n").drop(1)
 
+      # create statistic hashs
+      answers_hash = {}
+      generate_all_elements().each{ |element| answers_hash.merge!({element=>[]}) }
+
+      colors_hash = {}
+      generate_color(true).each{ |color| colors_hash.merge!({color=>[]}) }
+      numbers_hash = {}
+      generate_number(true).each{ |number| numbers_hash.merge!({number=>[]}) }
+      elements_hash = {}
+      generate_element(true).each{ |element| elements_hash.merge!({element=>[]}) }
+
+      statistic_records.each do |statistic_record|
+        statistic_elements = statistic_record.split(";")
+        right_variants = statistic_elements.first.split(" ")
+        user_answers = statistic_elements.second.split(" ")
+
+        not_right_answers = user_answers - right_variants
+        right_answers = user_answers - not_right_answers
+
+        right_variants.each{ |right_variant|
+          answers_hash[right_variant] << (right_answers.include?(right_variant) ? 1 : 0)
+        }
+      end
+
+      # average percent of correct answer for element
+      percent_correct_answer = answers_hash.map { |key, value| [key, value.sum.to_f/value.count*100] if value.present? }.compact
+
+      percent_correct_answer.each do |key_with_percent|
+        key = key_with_percent.first
+        percent = key_with_percent.last
+
+        color = key.split("_").first
+        element = key.split("_").second
+        number = key.split("_").last
+
+        colors_hash[color] << percent
+        elements_hash[element] << percent
+        numbers_hash[number.to_i] << percent
+      end
+
+      percent_correct_color = colors_hash.map { |key, value| [key, value.sum.to_f/value.count] if value.present? }.compact
+      percent_correct_element = elements_hash.map { |key, value| [key, value.sum.to_f/value.count] if value.present? }.compact
+      percent_correct_number = numbers_hash.map { |key, value| [key, value.sum.to_f/value.count] if value.present? }.compact
+
+      {
+        "percent_correct_answer"=>percent_correct_answer,
+        "percent_correct_color"=>percent_correct_color,
+        "percent_correct_element"=>percent_correct_element,
+        "percent_correct_number"=>percent_correct_number
+      }
     end
   end
 end
