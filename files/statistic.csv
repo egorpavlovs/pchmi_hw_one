@@ -27,3 +27,7 @@ red_symbol_1 green_word_3 blue_symbol_8;red_word_3 green_symbol_1 blue_symbol_7;
 blue_symbol_7 red_word_1 green_symbol_5;red_word_1 green_symbol_5 blue_symbol_7;100.0
 blue_symbol_9 green_word_8 red_word_3;red_word_3 green_word_8 blue_symbol_8;66.66666666666666
 green_symbol_7 red_word_6 blue_symbol_3;red_word_6 green_symbol_7 blue_symbol_3;100.0
+red_word_6 green_symbol_8 blue_symbol_4;red_word_6 green_symbol_6 blue_symbol_4;66.66666666666666
+green_word_6 blue_symbol_4 red_symbol_2;red_word_6 green_symbol_4 blue_symbol_2;0.0
+red_symbol_2 green_word_3 blue_symbol_4;red_symbol_2 green_word_3 blue_symbol_4;100.0
+blue_symbol_7 red_word_1 green_symbol_2;green_symbol_4 blue_word_3 blue_symbol_4;0.0
