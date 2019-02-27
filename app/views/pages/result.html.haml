@@ -14,3 +14,5 @@
 %p Not right answers:
 - not_right_answers&.each do |not_right_answer|
   =image_tag "#{not_right_answer}.png"
+
+= link_to 'to_question', root_path, method: :get
